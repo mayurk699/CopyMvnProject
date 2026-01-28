@@ -29,7 +29,7 @@
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
     <version>7.11.0</version>
-    <scope>test</scope>
+<!--    <scope>test</scope>    -->
 </dependency>
 
 <dependency>
@@ -60,10 +60,15 @@
       <artifactId>maven-surefire-plugin</artifactId>
       <version>3.2.5</version> <!-- Use the latest version -->
    <configuration>
- 	  	<suiteXmlFiles>
-  					  <suiteXmlFile>testng.xml</suiteXmlFile>
-		</suiteXmlFiles>
+ 	   <!-- Pass Maven params to JVM -->
+                <systemPropertyVariables>
+                    <Browser>${Browser}</Browser>
+                </systemPropertyVariables>
 
+                <!-- TestNG suite -->
+                <suiteXmlFiles>
+                    <suiteXmlFile>testng.xml</suiteXmlFile>
+                </suiteXmlFiles>
    </configuration>
     </plugin>
   </plugins>
