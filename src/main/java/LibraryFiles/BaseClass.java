@@ -2,6 +2,7 @@ package LibraryFiles;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.WebDriver;
@@ -45,27 +46,61 @@ public class BaseClass {
 		    }
 
 		    // ================= CHROME =================
-		    private ChromeOptions getChromeOptions() {
-		        ChromeOptions options = new ChromeOptions();
+//		    private ChromeOptions getChromeOptions() {
+//		        ChromeOptions options = new ChromeOptions();
+//
+//		        Map<String, Object> prefs = new HashMap<>();
+//		        prefs.put("credentials_enable_service", false);
+//		        prefs.put("profile.password_manager_enabled", false);
+//		        prefs.put("profile.default_content_setting_values.notifications", 2);
+//
+//		        options.setExperimentalOption("prefs", prefs);
+//
+//		        options.addArguments(
+//		                "--disable-notifications",
+//		                "--disable-infobars",
+//		                "--disable-extensions",
+//		                "--disable-popup-blocking",
+//		                "--disable-features=PasswordManagerEnableCheck,PasswordLeakDetection",
+//		                "--remote-allow-origins=*"
+//		        );
+//
+//		        return options;
+	private ChromeOptions getChromeOptions() {
 
-		        Map<String, Object> prefs = new HashMap<>();
-		        prefs.put("credentials_enable_service", false);
-		        prefs.put("profile.password_manager_enabled", false);
-		        prefs.put("profile.default_content_setting_values.notifications", 2);
+	    ChromeOptions options = new ChromeOptions();
 
-		        options.setExperimentalOption("prefs", prefs);
+	    // ===== Use fresh profile (MOST IMPORTANT) =====
+	    options.addArguments("--guest");   // OR use user-data-dir (see below)
 
-		        options.addArguments(
-		                "--disable-notifications",
-		                "--disable-infobars",
-		                "--disable-extensions",
-		                "--disable-popup-blocking",
-		                "--disable-features=PasswordManagerEnableCheck,PasswordLeakDetection",
-		                "--remote-allow-origins=*"
-		        );
+	    // ===== Disable password manager =====
+	    Map<String, Object> prefs = new HashMap<>();
+	    prefs.put("credentials_enable_service", false);
+	    prefs.put("profile.password_manager_enabled", false);
 
-		        return options;
-		    }
+	    // ===== Disable password leak detection =====
+	    prefs.put("safebrowsing.enabled", false);
+	    prefs.put("safebrowsing.disable_download_protection", true);
+
+	    options.setExperimentalOption("prefs", prefs);
+
+	    // ===== Disable automation detection =====
+	    options.setExperimentalOption(
+	            "excludeSwitches", Arrays.asList("enable-automation"));
+	    options.setExperimentalOption("useAutomationExtension", false);
+
+	    // ===== Extra safety flags =====
+	    options.addArguments("--disable-save-password-bubble");
+	    options.addArguments("--disable-notifications");
+	    options.addArguments("--disable-infobars");
+	    options.addArguments("--disable-extensions");
+	    options.addArguments("--no-default-browser-check");
+	    options.addArguments("--no-first-run");
+
+	    return options;
+	}
+
+		    
 
 		    // ================= EDGE =================
 		    private EdgeOptions getEdgeOptions() {
