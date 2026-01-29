@@ -64,8 +64,8 @@ public class BaseClass {
 //		                "--disable-features=PasswordManagerEnableCheck,PasswordLeakDetection",
 //		                "--remote-allow-origins=*"
 //		        );
-//
-//		        return options;
+//        return options;
+	
 	private ChromeOptions getChromeOptions() {
 
 	    ChromeOptions options = new ChromeOptions();
@@ -169,5 +169,6 @@ public class BaseClass {
 //		driver.get(UtilityClass.getTestDataFromPropertyFiles("URL"));
 //		
 	}
+
 
 
