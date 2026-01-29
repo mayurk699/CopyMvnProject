@@ -61,9 +61,9 @@
       <version>3.2.5</version> <!-- Use the latest version -->
    <configuration>
  	   <!-- Pass Maven params to JVM -->
-        <!--        <systemPropertyVariables>
-                    <Browser>${Browser}</Browser>
-                </systemPropertyVariables>		-->
+         <systemPropertyVariables>
+               <Browser>${Browser}</Browser>
+         </systemPropertyVariables>		
 
                 <!-- TestNG suite -->
                 <suiteXmlFiles>
